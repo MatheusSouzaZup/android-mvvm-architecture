@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import javax.inject.Singleton;
 
 
+import br.com.zup.mvvmarchitecture.BuildConfig;
 import br.com.zup.mvvmarchitecture.service.APIClient;
 import dagger.Module;
 import dagger.Provides;
@@ -19,7 +20,7 @@ public class AppModule {
     @Provides
     @Singleton
     APIClient provideApiClient() {
-        return new APIClient("xD");
+        return new APIClient(BuildConfig.HOST);
     }
 
 

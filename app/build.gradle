@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -10,15 +14,65 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    def STRING = "String"
+    def HOST = "HOST"
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "dev"
+    productFlavors {
+        dev {
+            applicationId 'br.com.zup.architecture.dev'
+            buildConfigField STRING, HOST, keystoreProperties['host_dev']
+            manifestPlaceholders = [
+                    appName: "MVVM DEV"
+            ]
+            dimension "dev"
+        }
+
+        mock {
+            applicationId 'br.com.zup.architecutre.mock'
+            buildConfigField STRING, HOST, keystoreProperties['host_dev']
+
+            manifestPlaceholders = [
+                    appName: "MVVM MOCK"
+            ]
+            dimension "dev"
+        }
+        hml {
+            applicationId 'br.com.zup.architecture.hml'
+            buildConfigField STRING, HOST, keystoreProperties['host_dev']
+            manifestPlaceholders = [
+                    appName: "MVVM HML"
+            ]
+
+            dimension "dev"
+        }
+
+        prd {
+            applicationId 'br.com.zup.architecture'
+            buildConfigField STRING, HOST, keystoreProperties['host_dev']
+
+            manifestPlaceholders = [
+                    appName: "MVVM PROD"
+            ]
+
+            dimension "dev"
+        }
+
+
+    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+    }
+    dataBinding {
+        enabled = true
     }
 }
 def SupportLibrary = '28.0.0'

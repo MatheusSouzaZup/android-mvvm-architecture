@@ -36,9 +36,6 @@ import java.util.Set;
 import br.com.zup.mvvmarchitecture.MyApplication;
 
 
-/**
- * Created by rafaelneiva on 03/11/17.z
- */
 
 public class Utils {
 
